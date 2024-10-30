@@ -1,6 +1,6 @@
 package co.unicauca.email.Email.consumer;
 
-import co.unicauca.email.Email.domain.Person;
+
 import co.unicauca.email.Email.domain.PersonDTO;
 import co.unicauca.email.Email.service.EmailService;
 import lombok.extern.slf4j.Slf4j;

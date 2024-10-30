@@ -1,6 +1,6 @@
 package co.unicauca.email.Email.service;
 
-import co.unicauca.email.Email.domain.Person;
+
 import co.unicauca.email.Email.domain.PersonDTO;
 import org.springframework.stereotype.Service;
 import org.simplejavamail.api.email.Email;
@@ -19,9 +19,9 @@ public class EmailService {
         Email email= EmailBuilder.startingBlank()
                 .from("Notificaciones cuyChair","cuychair@gmail.com")
                 .to("Hola",chair.getEmail())
-                .withSubject("Notificacion de trabajos")
-                .withPlainText("Estimado autor\n\n\n" +
-                        "Notificamos que se recibió de forma exitosa su trabajo para la Conferencia: \n\n"
+                .withSubject("Notificacion de Conferencias")
+                .withPlainText("Estimado autor\n\n\n" +chair.getName()+
+                        "Notificamos que se creo exitosamente la conferencia:"+chair.getNameConference()+" \n\n"
                         +"Autor: "+chair.getName()+"\n")
                 .buildEmail();
 

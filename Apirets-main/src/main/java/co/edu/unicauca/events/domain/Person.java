@@ -1,50 +1,40 @@
 package co.edu.unicauca.events.domain;
 
-import jakarta.persistence.*;
+public class Person {
+    private Long id;
+    private String name;
+    private String email;
 
-import java.io.Serializable;
-import java.util.List;
+    public Person(Long id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 
-/**
- *
- * @author FABIAN G
- */
-@Entity
-@Table(name = "person")
-public class Person implements Serializable {
+    public Person() {
+    }
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+    public Long getId() {
+        return id;
+    }
 
-  public String name;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  private String email;
+    public String getName() {
+        return name;
+    }
 
-  @ManyToMany(mappedBy = "comite")
-  private List<Event> events;
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

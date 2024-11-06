@@ -1,4 +1,4 @@
-package co.edu.unicauca.events.publisher;
+package co.edu.unicauca.events.infrastructure.output.publisher;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

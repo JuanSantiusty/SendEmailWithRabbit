@@ -1,4 +1,4 @@
-package co.edu.unicauca.events.publisher.DTO;
+package co.edu.unicauca.events.infrastructure.output.publisher.DTO;
 
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package co.edu.unicauca.events.publisher;
+package co.edu.unicauca.events.infrastructure.output.publisher;
 
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

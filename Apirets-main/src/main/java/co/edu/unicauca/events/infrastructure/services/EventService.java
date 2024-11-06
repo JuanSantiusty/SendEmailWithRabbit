@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package co.edu.unicauca.events.services;
+package co.edu.unicauca.events.infrastructure.services;
 
-import co.edu.unicauca.events.dao.EventRepository;
-import co.edu.unicauca.events.domain.Event;
-import co.edu.unicauca.events.domain.Person;
-import co.edu.unicauca.events.publisher.DTO.PersonDTO;
-import co.edu.unicauca.events.publisher.Publisher;
+import co.edu.unicauca.events.infrastructure.output.persistence.dao.EventRepository;
+import co.edu.unicauca.events.infrastructure.output.persistence.entitys.EventEntity;
+import co.edu.unicauca.events.infrastructure.output.persistence.entitys.PersonEntity;
+import co.edu.unicauca.events.infrastructure.output.publisher.DTO.PersonDTO;
+import co.edu.unicauca.events.infrastructure.output.publisher.Publisher;
 import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
@@ -30,22 +30,22 @@ public class EventService implements IEventService {
 
   @Override
   @Transactional
-  public List<Event> findAll() {
-    return (List<Event>) eventDao.findAll();
+  public List<EventEntity> findAll() {
+    return (List<EventEntity>) eventDao.findAll();
   }
 
   @Override
   @Transactional
-  public Event findById(Long id) {
-    Event e = eventDao.findById(id).orElse(null);
+  public EventEntity findById(Long id) {
+    EventEntity e = eventDao.findById(id).orElse(null);
     return e;
   }
 
   @Override
   @Transactional
-  public Event create(Event event) {
-    Event e =eventDao.save(event);
-    Person person = event.getChair();
+  public EventEntity create(EventEntity event) {
+    EventEntity e =eventDao.save(event);
+    PersonEntity person = event.getChair();
     PersonDTO personDTO = new PersonDTO(person.getId(), person.getName(), person.getEmail(), event.getId(),event.getName());
     publisher.sendEmail(personDTO);
     return e;
@@ -53,8 +53,8 @@ public class EventService implements IEventService {
 
   @Override
   @Transactional
-  public Event update(Long id, Event event) {
-    Event e = findById(id);
+  public EventEntity update(Long id, EventEntity event) {
+    EventEntity e = findById(id);
     e.setName(event.getName());
     return eventDao.save(e);
   }
@@ -66,8 +66,8 @@ public class EventService implements IEventService {
   }
 
   @Override
-  public List<Person> findCommittee(Long eventId) {
-    Optional<Event> event = eventDao.findById(eventId);
+  public List<PersonEntity> findCommittee(Long eventId) {
+    Optional<EventEntity> event = eventDao.findById(eventId);
 
     if (event.isEmpty()) {
       throw new RuntimeException("Event not found");

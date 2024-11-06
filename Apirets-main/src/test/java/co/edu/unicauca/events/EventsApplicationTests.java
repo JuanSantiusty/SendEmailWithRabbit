@@ -1,8 +1,8 @@
 package co.edu.unicauca.events;
 
-import co.edu.unicauca.events.dao.EventRepository;
-import co.edu.unicauca.events.domain.Event;
-import co.edu.unicauca.events.services.EventService;
+import co.edu.unicauca.events.infrastructure.output.persistence.dao.EventRepository;
+import co.edu.unicauca.events.infrastructure.output.persistence.entitys.EventEntity;
+import co.edu.unicauca.events.infrastructure.services.EventService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,21 +27,21 @@ public class EventsApplicationTests {
     @InjectMocks
     private EventService eventService;
 
-    private Event event;
+    private EventEntity event;
 
     @BeforeEach
     void setUp() {
-        event = new Event();
+        event = new EventEntity();
         event.setId(1L);
         event.setName("Concierto");
     }
 
     @Test
     public void testFindAll() {
-        List<Event> events = Arrays.asList(event);
+        List<EventEntity> events = Arrays.asList(event);
         when(eventRepository.findAll()).thenReturn(events);
 
-        List<Event> result = eventService.findAll();
+        List<EventEntity> result = eventService.findAll();
 
         assertEquals(1, result.size());
         assertEquals("Concierto", result.get(0).getName());
@@ -52,7 +52,7 @@ public class EventsApplicationTests {
     public void testFindById() {
         when(eventRepository.findById(1L)).thenReturn(Optional.of(event));
 
-        Event result = eventService.findById(1L);
+        EventEntity result = eventService.findById(1L);
 
         assertNotNull(result);
         assertEquals(1L, result.getId());
@@ -64,7 +64,7 @@ public class EventsApplicationTests {
     public void testSave() {
         when(eventRepository.save(event)).thenReturn(event);
 
-        Event result = eventService.create(event);
+        EventEntity result = eventService.create(event);
 
         assertNotNull(result);
         assertEquals("Concierto", result.getName());

@@ -6,6 +6,8 @@ import co.edu.unicauca.events.domain.Person;
 import co.edu.unicauca.events.infrastructure.output.persistence.dao.EventRepository;
 import co.edu.unicauca.events.infrastructure.output.persistence.entitys.EventEntity;
 import co.edu.unicauca.events.infrastructure.output.persistence.maper.EventPersistenceMapper;
+import co.edu.unicauca.events.infrastructure.output.publisher.DTO.PersonDTO;
+import co.edu.unicauca.events.infrastructure.output.publisher.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +20,9 @@ public class EventRepositoryAdapter implements EventRepositoryPort {
 
     @Autowired
     private EventRepository repo;
+
+    @Autowired
+    Publisher publisher;
 
     @Override
     public List<Event> findAll() {
@@ -42,6 +47,9 @@ public class EventRepositoryAdapter implements EventRepositoryPort {
     public Event save(Event event) {
         EventEntity entity = EventPersistenceMapper.toEventEntity(event);
         entity = repo.save(entity);
+        Person chair=event.getChair();
+        PersonDTO chairDTO=new PersonDTO(chair.getId(), chair.getName(), chair.getEmail(), event.getId(), event.getName());
+        publisher.sendEmail(chairDTO);
         return EventPersistenceMapper.toEvent(entity);
     }
 

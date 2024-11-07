@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
  *
  * @author FABIAN G
  */
-@Repository
+
 public interface EventRepository extends JpaRepository<EventEntity, Long> {
 }

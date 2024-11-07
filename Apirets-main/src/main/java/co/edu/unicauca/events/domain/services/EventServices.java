@@ -4,9 +4,11 @@ import co.edu.unicauca.events.aplication.ports.input.EventServicesPort;
 import co.edu.unicauca.events.aplication.ports.output.EventRepositoryPort;
 import co.edu.unicauca.events.domain.Event;
 import co.edu.unicauca.events.domain.Person;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EventServices implements EventServicesPort {
 
     private final EventRepositoryPort repository;
@@ -22,7 +24,7 @@ public class EventServices implements EventServicesPort {
 
     @Override
     public Event findById(Long id) {
-        return repository.findById(id);
+        return repository.findById(id).get();
     }
 
     @Override
